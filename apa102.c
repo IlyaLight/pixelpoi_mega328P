@@ -16,6 +16,7 @@
 
 
 
+
 // start Freme
 void startFreme(void)
 {
@@ -47,9 +48,9 @@ void spi_Init(void)
 void setPixelColor(uint8_t r, uint8_t g, uint8_t b)
 {
 	spi_Transmit(255);
-	spi_Transmit(r);
-	spi_Transmit(g);
 	spi_Transmit(b);
+	spi_Transmit(g);
+	spi_Transmit(r);
 }
 
 

@@ -24,13 +24,15 @@
 #define shot_pres			2		// кличество циклов после которых будет зафикслирован ShorClik, програмный фильтр помех на порту
  
 // регистор статуса кнопки
-static uint8_t	bt_result=0;		// Переменная результат. Бит-карта нажатий
+static volatile uint8_t bt_result=0;		// Переменная результат. Бит-карта нажатий
 #define BSC_NotPressed		0b000	// исходное состояние
 #define BSC_ShorClik		0b001	// короткое нажатие
 #define BSC_DoubClik		0b010	// двойное нажтие
 #define BSC_TripClik		0b110	// торойное нажатие
 #define BSC_LongClik		0b111	// длинное нажатие
 
-void button_scan();					// цыкал опроса кнопки
+void button_scan(void);					// цыкал опроса кнопки
+void button_init(void);
+uint8_t get_bt_status(void);
 
 #endif /* BUTTON_H_ */

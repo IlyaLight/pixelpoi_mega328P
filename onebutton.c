@@ -10,7 +10,9 @@
 #include <avr/io.h>
 #include "macros.h"
 
-void buttonInit (void)
+
+
+void button_init(void)
 {
 	BTN_DDR &= ~(1<<BTN_ONE);			//на ввод
 	BTN_PORT |= (1<<BTN_ONE);			//подтяжка вкл
@@ -20,27 +22,25 @@ void buttonInit (void)
 // Эта функция сканер. Она должна вызываться раз в 20мс
 void button_scan(void) 
 {	
-	static uint8_t	p_time=0;			// Переменная времени работы автомата - знаковая(!)
+	static int8_t	p_time=0;			// Переменная времени работы автомата - знаковая(!)
 	static uint8_t	bt_cnt=0;			// Переменная счетчик нажатий
 	
 	
-	
-	if (GET(BTN_DDR,BTN_ONE))		// Кнопень придавлена. Тупо считаем время придавки.
+	if (!GET(BTN_PIN,BTN_ONE))			// Кнопень придавлена. Тупо считаем время придавки.
 	{ 
-		if (bt_result==BSC_LongClik) return; // заглушка от повторного сробатывания LongClik
-		if (p_time<0x7F) p_time++;
-		if (p_time>=long_press)			// LongClik
+		if (p_time==long_press) return;	//LongClik уже отработал
+		p_time++;
+		if (p_time==long_press)			// LongClik
 		{
-			bt_result=BSC_LongClik;	//		
+			bt_result=BSC_LongClik;		
 		}
 	}
 	
 	else if (p_time>=shot_pres)			//  Момент отпускания кнопки.
 	{ 
-		if (bt_result==BSC_LongClik)	// если кнопка было отпущена после long clik
+		if (p_time==long_press)	// если кнопка было отпущена после long clik
 		{
 			p_time=0;
-			bt_result=0;
 			return;
 		}
 		
@@ -63,4 +63,10 @@ void button_scan(void)
 		bt_result=bt_cnt;   
 		bt_cnt=0;
 	}
+}
+
+uint8_t get_bt_status(void)
+{
+	return bt_result;
+	bt_result=0;
 }
