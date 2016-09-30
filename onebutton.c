@@ -14,59 +14,56 @@
 
 void button_init(void)
 {
-	BTN_DDR &= ~(1<<BTN_ONE);			//на ввод
-	BTN_PORT |= (1<<BTN_ONE);			//подтяжка вкл
+	BTN_DDR &= ~(1<<BTN_ONE);			// pin in
+	BTN_PORT |= (1<<BTN_ONE);			// pull up
 }
 
 
-// Эта функция сканер. Она должна вызываться раз в 20мс
-void button_scan(void) 
+// scan every 20ms
+uint8_t button_scan(void) 
 {	
-	static int8_t	p_time=0;			// Переменная времени работы автомата - знаковая(!)
-	static uint8_t	bt_cnt=0;			// Переменная счетчик нажатий
+	static  int8_t	p_time=0;			// signed(!) variable time
+	static  uint8_t	bt_cnt=0;			// clicks counter
 	
 	
-	if (!GET(BTN_PIN,BTN_ONE))			// Кнопень придавлена. Тупо считаем время придавки.
+	if (!GET(BTN_PIN,BTN_ONE))			// button is pressed, calculate the time
 	{ 
-		if (p_time==long_press) return;	//LongClik уже отработал
+		if (p_time==long_press) return 0;	// LongClik already was
+		if (p_time<0) p_time=0;
 		p_time++;
+		if (bt_cnt>0) return 0;			// ate it re-click
 		if (p_time==long_press)			// LongClik
 		{
-			bt_result=BSC_LongClik;		
+			return BSC_LongClik;		
 		}
 	}
 	
-	else if (p_time>=shot_pres)			//  Момент отпускания кнопки.
+	else if (p_time>=shot_pres)			//  button up
 	{ 
-		if (p_time==long_press)	// если кнопка было отпущена после long clik
+		if (p_time==long_press)			// after long_press
 		{
 			p_time=0;
-			return;
+			return 0;
 		}
-		
-		bt_cnt++;						// фиксируем коротки клики и количество
-		if (bt_cnt==command_max_len)	// если достигнут макс количтво кликов выдаем результат
-		{
-			bt_result=bt_cnt;			
-			bt_cnt=0;
-		}								
+		bt_cnt++;						// quantity clicks
 		p_time=0;
+		if (bt_cnt==command_max_len)	// max clicks
+		{
+			bt_cnt=0;
+			return BSC_TripClik;
+		}								
 	} 
 	
-	else if (bt_cnt>0 && p_time>-release_timeout)	// таймер повторных нажатий				
+	else if (bt_cnt>0 && p_time>-release_timeout)	// Timer repeat click				
 	{
 		p_time--;							
 	} 
 
-	else if (bt_cnt>0)					// Таймаут комманды, сброс состояний
+	else if (bt_cnt>0)					//timeout, reset state
 	{ 
-		bt_result=bt_cnt;   
+		uint8_t t=bt_cnt;   
 		bt_cnt=0;
+		return t;
 	}
-}
-
-uint8_t get_bt_status(void)
-{
-	return bt_result;
-	bt_result=0;
+	return 0;	
 }

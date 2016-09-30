@@ -6,6 +6,7 @@
  */ 
 #include "apa102.h"
 #include <avr/io.h>
+#include "macros.h"
 
 
 
@@ -29,8 +30,10 @@ void startFreme(void)
 // transmit data on SPI
 void spi_Transmit(uint8_t data)
 {
+//	CLI
 	SPDR=data;						//start transmit
 	while(!(SPSR & (1<<SPIF)));		//wait until the transmit is complete
+//	SEI
 }
 
 

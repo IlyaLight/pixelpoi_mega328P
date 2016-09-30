@@ -3,6 +3,7 @@
  *
  * Created: 01.09.2016 22:04:39
  *  Author: Light
+ * testing on mega328P
  */ 
 
 #include <avr/io.h>
@@ -11,28 +12,26 @@
 #ifndef ONEBUTTON_H_
 #define ONEBUTTON_H_
 
-//	настройки портов
-#define BTN_PORT			PORTD			/*порт чтени€ кнопок*/
+//	Port
+#define BTN_PORT			PORTD			
 #define BTN_DDR				DDRD
 #define BTN_PIN				PIND
-#define BTN_ONE				2u				/*пины чтени€ кнопок*/
+#define BTN_ONE				2u				
 
-//	настройки циклов
-#define release_timeout		25		// ћаксимум 127 при использовании типа s08 дл€ bt_time
-#define long_press			50		// если держим кнопень нажатой столько циклов или больше - это длинное нажатие
-#define command_max_len		3		// максимальнок количество быстрых нажатий
-#define shot_pres			2		// кличество циклов после которых будет зафикслирован ShorClik, програмный фильтр помех на порту
+//	timing, 1=20ms
+#define release_timeout		17		// timeout for re-click, max 127
+#define long_press			50		// long press
+#define command_max_len		3		// max clicks
+#define shot_pres			3		// time ShorClik, software filter
  
-// регистор статуса кнопки
-static volatile uint8_t bt_result=0;		// ѕеременна€ результат. Ѕит-карта нажатий
-#define BSC_NotPressed		0b000	// исходное состо€ние
-#define BSC_ShorClik		0b001	// короткое нажатие
-#define BSC_DoubClik		0b010	// двойное нажтие
-#define BSC_TripClik		0b110	// торойное нажатие
-#define BSC_LongClik		0b111	// длинное нажатие
+// Mask for the return value of button_scan()
+#define BSC_NotPressed		0b000	
+#define BSC_ShorClik		0b001	
+#define BSC_DoubClik		0b010	
+#define BSC_TripClik		0b110	
+#define BSC_LongClik		0b111	
 
-void button_scan(void);					// цыкал опроса кнопки
+uint8_t button_scan(void);			// every 20ms
 void button_init(void);
-uint8_t get_bt_status(void);
 
 #endif /* BUTTON_H_ */

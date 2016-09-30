@@ -9,6 +9,10 @@
 #ifndef MACROS_H_
 #define MACROS_H_
 
+
+#define SEI asm("sei");
+#define CLI asm("cli");
+
 //-------------------------------
 // Работа с битами
 //-------------------------------

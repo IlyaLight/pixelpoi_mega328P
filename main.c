@@ -34,6 +34,8 @@
 //------------------------------------------------------
 
 static uint8_t tenmscout=DTLOOP;		//дополнительный делитель для таймера
+static volatile uint8_t status=0;
+#define TICK 0
 
 
 //------------------------------------------------------
@@ -45,8 +47,8 @@ ISR(TIMER0_COMPA_vect)
 {	
 	if(--tenmscout==0)
 	{
+		SET(status,TICK);
 		tenmscout=DTLOOP;
-		button_scan();
 
 			//if (!GET(PIND,2u))
 			//{
@@ -82,56 +84,81 @@ int main(void)
 	
 
     /* Replace with your application code */
-    while (1) 
+	while (1) 
 	{
-		uint8_t b = get_bt_status();
-		switch(b)
+		if (GET(status,TICK))
 		{
-			case BSC_ShorClik:
-				startFreme();
-				setPixelColor(10,10,0);
-				setPixelColor(20,20,0);
-				setPixelColor(40,40,0);
-				setPixelColor(80,80,0);
-				setPixelColor(125,125,0);
-			break;
+			switch(button_scan())
+			{
+				case BSC_ShorClik:
+					startFreme();
+					setPixelColor(10,10,0);
+					setPixelColor(20,20,0);
+					setPixelColor(40,40,0);
+					setPixelColor(80,80,0);
+					setPixelColor(125,125,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+				break;
 			
-			case BSC_LongClik:
-				startFreme();
-				setPixelColor(20,0,0);
-				setPixelColor(40,0,0);
-				setPixelColor(105,0,0);
-				setPixelColor(170,0,0);
-				setPixelColor(225,0,0);			
-			break;
+				case BSC_LongClik:
+					startFreme();
+					setPixelColor(20,0,0);
+					setPixelColor(40,0,0);
+					setPixelColor(105,0,0);
+					setPixelColor(170,0,0);
+					setPixelColor(225,0,0);		
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);	
+				break;
 			
-			case BSC_DoubClik:
-				startFreme();
-				setPixelColor(0,20,0);
-				setPixelColor(0,40,0);
-				setPixelColor(0,225,0);
-				setPixelColor(0,0,0);
-				setPixelColor(0,20,0);
-				setPixelColor(0,40,0);
-				setPixelColor(0,225,0);
-			break;
+				case BSC_DoubClik:
+					startFreme();
+					setPixelColor(0,20,0);
+					setPixelColor(0,40,0);
+					setPixelColor(0,225,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,20,0);
+					setPixelColor(0,40,0);
+					setPixelColor(0,225,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,0);
+				break;
 			
-			case BSC_TripClik:
-				startFreme();
-				setPixelColor(0,0,20);
-				setPixelColor(0,0,40);
-				setPixelColor(0,0,225);
-				setPixelColor(0,0,0);
-				setPixelColor(0,0,20);
-				setPixelColor(0,0,40);
-				setPixelColor(0,0,225);
-				setPixelColor(0,0,0);
-				setPixelColor(0,0,20);
-				setPixelColor(0,0,40);
-				setPixelColor(0,0,225);
-				setPixelColor(0,0,0);
-			break;
+				case BSC_TripClik:
+					startFreme();
+					setPixelColor(0,0,20);
+					setPixelColor(0,0,40);
+					setPixelColor(0,0,225);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,20);
+					setPixelColor(0,0,40);
+					setPixelColor(0,0,225);
+					setPixelColor(0,0,0);
+					setPixelColor(0,0,20);
+					setPixelColor(0,0,40);
+					setPixelColor(0,0,225);
+					setPixelColor(0,0,0);
+				break;
 			
+			}
+			
+			CLR(status, TICK);
 		}
 	}
     
