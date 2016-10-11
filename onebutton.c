@@ -11,6 +11,7 @@
 #include "macros.h"
 
 
+uint8_t max_len=1;		// max clicks
 
 void button_init(void)
 {
@@ -26,35 +27,38 @@ uint8_t button_scan(void)
 	static  uint8_t	bt_cnt=0;			// clicks counter
 	
 	
+	
 	if (!GET(BTN_PIN,BTN_ONE))			// button is pressed, calculate the time
 	{ 
-		if (p_time==long_press) return 0;	// LongClik already was
+		if (p_time==LONG_PRESS) return 0;	// LongClik already was
 		if (p_time<0) p_time=0;
 		p_time++;
 		if (bt_cnt>0) return 0;			// ate it re-click
-		if (p_time==long_press)			// LongClik
+		if (p_time==LONG_PRESS)			// LongClik
 		{
 			return BSC_LongClik;		
 		}
 	}
 	
-	else if (p_time>=shot_pres)			//  button up
+	else if (p_time>=SHOT_PRESS)			//  button up
 	{ 
-		if (p_time==long_press)			// after long_press
+		if (p_time==LONG_PRESS)			// after long_press
 		{
 			p_time=0;
 			return 0;
 		}
 		bt_cnt++;						// quantity clicks
 		p_time=0;
-		if (bt_cnt==command_max_len)	// max clicks
+		if (bt_cnt==max_len)	// max clicks
 		{
 			bt_cnt=0;
-			return BSC_TripClik;
+			uint8_t t=bt_cnt;
+			bt_cnt=0;
+			return t;
 		}								
 	} 
 	
-	else if (bt_cnt>0 && p_time>-release_timeout)	// Timer repeat click				
+	else if (bt_cnt>0 && p_time>-RELEASE_TIMEOUT)	// Timer repeat click				
 	{
 		p_time--;							
 	} 
@@ -66,4 +70,10 @@ uint8_t button_scan(void)
 		return t;
 	}
 	return 0;	
+}
+
+// set max quantity clicks
+void set_max_len(uint8_t l)
+{
+	max_len=l;
 }

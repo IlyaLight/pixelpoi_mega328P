@@ -19,7 +19,7 @@
 
 
 // start Freme
-void startFreme(void)
+void startFrame(void)
 {
 	spi_Transmit(0);
 	spi_Transmit(0);
@@ -48,7 +48,7 @@ void spi_Init(void)
 }
 
 
-void setPixelColor(uint8_t r, uint8_t g, uint8_t b)
+void setPixelColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
 	spi_Transmit(255);
 	spi_Transmit(b);
@@ -65,7 +65,7 @@ void setPixeslColor(uint8_t *data[])
 //clear all pixels
 void clearPixes()
 {
-	startFreme();
+	startFrame();
 	
 	for (uint8_t t = numPixels; t; t--)
 	{

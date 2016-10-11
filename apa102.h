@@ -26,10 +26,10 @@ void
 	spi_Init(void),
 	show(void),
 	clear(void),										//clear all pixels
-	setPixelColor(uint8_t r,uint8_t g,uint8_t b),											
+	setPixelColorRGB(uint8_t r,uint8_t g,uint8_t b),											
 	setPixeslColor(uint8_t *data[]),
 	spi_Transmit(uint8_t data), 
-    startFreme(void);            
+    startFrame(void);									//send start frame to a pixel-strip
 
 
 #endif /* APA102_H_ */

@@ -19,19 +19,20 @@
 #define BTN_ONE				2u				
 
 //	timing, 1=20ms
-#define release_timeout		17		// timeout for re-click, max 127
-#define long_press			50		// long press
-#define command_max_len		3		// max clicks
-#define shot_pres			3		// time ShorClik, software filter
+#define RELEASE_TIMEOUT		17		// timeout for re-click, max 127
+#define LONG_PRESS			50		// long press
+#define SHOT_PRESS			3		// time ShorClik, software filter
  
 // Mask for the return value of button_scan()
 #define BSC_NotPressed		0b000	
 #define BSC_ShorClik		0b001	
 #define BSC_DoubClik		0b010	
-#define BSC_TripClik		0b110	
+#define BSC_TripClik		0b011	
 #define BSC_LongClik		0b111	
 
+
 uint8_t button_scan(void);			// every 20ms
-void button_init(void);
+void button_init(void);				// init button port
+void set_max_len(uint8_t);			// set max quantity clicks
 
 #endif /* BUTTON_H_ */

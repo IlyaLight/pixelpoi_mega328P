@@ -140,6 +140,9 @@
     <Compile Include="apa102.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="graphics.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="onebutton.c">
       <SubType>compile</SubType>
     </Compile>
@@ -150,6 +153,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pixelpoi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pixelpoi.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
