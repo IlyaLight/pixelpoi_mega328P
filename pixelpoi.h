@@ -24,6 +24,7 @@ static uint16_t
 void	
 	imageLoop(void),		// развретка картинки
 	imageInit(void),		//
+	setImage(uint8_t),
 	nextImage(void);
 
 	

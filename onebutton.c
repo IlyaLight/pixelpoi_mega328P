@@ -51,7 +51,6 @@ uint8_t button_scan(void)
 		p_time=0;
 		if (bt_cnt==max_len)	// max clicks
 		{
-			bt_cnt=0;
 			uint8_t t=bt_cnt;
 			bt_cnt=0;
 			return t;

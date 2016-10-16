@@ -36,6 +36,12 @@ void nextImage(void)
   	imageInit();
 }
 
+void setImage(uint8_t n)
+{
+	imageNumber=n;
+	imageInit();
+}
+
 // развретка картинки
 void imageLoop(void)
 {
@@ -62,28 +68,28 @@ void imageLoop(void)
           			setPixelColorRGB(palette[idx][0], palette[idx][1], palette[idx][2]);
 				}
 			}
+			
 		}
 		break;
 
-		//case PALETTE4:					// 4-bit (16 color) palette-based image
-		//{ 
-		  //uint8_t  	pixelNum, 
-      				//p1, 
-      				//p2,
-              		//*ptr = (uint8_t *)&imagePixels[imageLine * NUM_LEDS / 2];
-//
-		  //for(pixelNum = 0; pixelNum < NUM_LEDS; ) 
-		  //{
-			//p2  = pgm_read_byte(ptr++); // Data for two pixels...
-			//p1  = p2 >> 4;              // Shift down 4 bits for first pixel
-			//p2 &= 0x0F;                 // Mask out low 4 bits for second pixel
-			//strip.setPixelColorRGB(pixelNum++,
-			  //palette[p1][0], palette[p1][1], palette[p1][2]);
-			//strip.setPixelColor(pixelNum++,
-			  //palette[p2][0], palette[p2][1], palette[p2][2]);
-		  //}
-		  //break;
-		//}
+		case PALETTE4:					// 4-bit (16 color) palette-based image
+		{ 
+			uint8_t  	pixelNum, 
+      				p1, 
+      				p2,
+              		*ptr = (uint8_t *)&imagePixels[imageLine * NUM_LEDS / 2];
+			startFrame();		//готовимся для отправки стрчки кортики
+			for(pixelNum = NUM_LEDS/2; pixelNum--;) 
+			{
+			p2  = pgm_read_byte(ptr++); // Data for two pixels...
+			p1  = p2 >> 4;              // Shift down 4 bits for first pixel
+			p2 &= 0x0F;                 // Mask out low 4 bits for second pixel
+			setPixelColorRGB(palette[p1][0], palette[p1][1], palette[p1][2]);
+			setPixelColorRGB(palette[p2][0], palette[p2][1], palette[p2][2]);
+			}
+			
+		}
+		break;
 	}
 	if(++imageLine >= imageLines) imageLine = 0; // Next scanline, wrap around
 }

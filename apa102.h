@@ -25,7 +25,7 @@ uint8_t *pixels[];										// LED RGB values (3 bytes ea.)
 void
 	spi_Init(void),
 	show(void),
-	clear(void),										//clear all pixels
+	clearPixes(void),										//clear all pixels
 	setPixelColorRGB(uint8_t r,uint8_t g,uint8_t b),											
 	setPixeslColor(uint8_t *data[]),
 	spi_Transmit(uint8_t data), 

@@ -92,33 +92,39 @@ int main(void)
 	while (1) 
 	{
 		
-		//if(GET(status,SHOWIMG))
+		
+		if(GET(status,SHOWIMG))
+		{
 			imageLoop();
-		//
-		//if (GET(status,TICK))
-		//{
-			//switch(button_scan())
-			//{
-				//case BSC_ShorClik:
-					//
-				//break;
-			//
-				//case BSC_LongClik:
-					//XOR(status, SHOWIMG);
-				//break;
-			//
-				//case BSC_DoubClik:
-					//
-				//break;
-			//
-				//case BSC_TripClik:
-					//
-				//break;
-			//
-			//}
-			//
-			//CLR(status, TICK);
-		//}
+		}
+		else
+		{
+			clearPixes();
+		}
+		if (GET(status,TICK))
+		{
+			switch(button_scan())
+			{
+				case BSC_ShorClik:
+				XOR(status, SHOWIMG);
+				break;
+				
+				case BSC_LongClik:
+				nextImage();
+				break;
+				
+				case BSC_DoubClik:
+				
+				break;
+				
+				case BSC_TripClik:
+				
+				break;
+				
+			}
+			
+			CLR(status, TICK);
+		}
 		
 		
 	}
