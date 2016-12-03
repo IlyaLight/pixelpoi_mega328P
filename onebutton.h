@@ -32,7 +32,6 @@
 
 
 uint8_t button_scan(void);			// every 20ms
-void button_init(void);				// init button port
 void set_max_len(uint8_t);			// set max quantity clicks
 
 #endif /* BUTTON_H_ */

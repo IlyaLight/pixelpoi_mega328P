@@ -12,18 +12,17 @@
 #define  numPixels 18									// number pixels
 
 #define DDR_SPI DDRB									//SPI port
-#define DD_MISI 3										//MISO leg
+#define DD_MOSI 3										//MISO leg
 #define DD_SCK	5
 #define DD_SS	2
 
 # define SPI2 1
 
 
-uint8_t *pixels[];										// LED RGB values (3 bytes ea.)
+//uint8_t *pixels[] ;										// LED RGB values (3 bytes ea.)
 
 
 void
-	spi_Init(void),
 	show(void),
 	clearPixes(void),										//clear all pixels
 	setPixelColorRGB(uint8_t r,uint8_t g,uint8_t b),											

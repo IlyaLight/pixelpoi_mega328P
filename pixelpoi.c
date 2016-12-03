@@ -14,6 +14,15 @@
 
 // GLOBAL STATE STUFF ------------------------------------------------------
 
+ uint8_t static
+ imageNumber = 0 ,			// Current image being displayed
+ imageType ,					// Image type: PALETTE[1,4,8] or TRUECOLOR
+ *imagePalette,				// -> palette data in PROGMEM
+ *imagePixels ,				// -> pixel data in PROGMEM
+ palette[16][3] ;				// RAM-based color table for 1- or 4-bit images
+ uint16_t static
+ imageLines ,					// Number of lines in active image
+ imageLine ;					// Current line number in image
 
 
 

@@ -13,12 +13,6 @@
 
 uint8_t max_len=1;		// max clicks
 
-void button_init(void)
-{
-	BTN_DDR &= ~(1<<BTN_ONE);			// pin in
-	BTN_PORT |= (1<<BTN_ONE);			// pull up
-}
-
 
 // scan every 20ms
 uint8_t button_scan(void) 
