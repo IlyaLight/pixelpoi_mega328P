@@ -18,12 +18,6 @@
 	INCLUDE
 ------------------------------*/
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/power.h>
-#include <util/delay.h>
-#include <avr/pgmspace.h>
-
 #include "define.h"
 #include "apa102.h"
 #include "apa102.h"
@@ -34,6 +28,14 @@
 #include "uart.h"
 #include "nrf24.h"
 #include "nRF24L01.h"
+
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/power.h>
+#include <util/delay.h>
+#include <avr/pgmspace.h>
+
 
 
 
@@ -91,7 +93,7 @@ int main(void)
 	
 	init();
 		
-		
+	nrf24_test();	
 	
 	//настройка таймеров
 	//TCCR0A=00<<COM0A0|00<<COM0B0|2<<WGM00;	//порт отключен, режим сброса при совподении с OCR0A
@@ -103,112 +105,7 @@ int main(void)
 	//TIMSK0|=0<<TOIE0|1<<OCIE0A;		//on interrupt overflow timer
 	sei();							//on global interrupt
 	
-	send_Uart_str("Hello_World\r");
 	
-	_delay_ms(100);
-	
-	
-	
-	send_Uart_str("nrf24_init\t");
-	send_Uart(nrf24_init());
-	send_Uart_str("\r");
-	_delay_ms(2);
-	
-	send_Uart_str("CONFIG\t\t");
-	uint8_t conf = nrf24_GetReg(CONFIG);
-	send_Uart_SHbit(conf);
-	send_Uart_str("\r");
-	
-	send_Uart_str("PRIM_RX = 0");
-	nrf24_SetReg(CONFIG, conf & ~(1 << PRIM_RX));
-	send_Uart_str("\r");
-	
-	send_Uart_str("CONFIG\t\t");
-	send_Uart_SHbit(nrf24_GetReg(CONFIG));
-	send_Uart_str("\r");
-	
-	send_Uart_str("FIFO_STATUS\t");
-	send_Uart_SHbit(nrf24_GetReg(FIFO_STATUS));
-	send_Uart_str("\r");
-	
-	send_Uart_str("TX_EMPTY\t");
-	if (!(nrf24_GetReg(FIFO_STATUS) & (1 << TX_EMPTY)))
-	send_Uart_str("1");
-	else
-	send_Uart_str("0");
-	send_Uart_str("\r");
-	send_Uart_str("\r");
-	
-	
-	
-	
-	send_Uart_str("W_TX_PAYLOAD = pac\t\t");
-	send_Uart_str("\r");
-	send_Uart_str("TX_EMPTY\t");
-	uint8_t pac = 0xAC;
-	nrf24_SetRegBuf(W_TX_PAYLOAD, &pac, 1);
-	if (!(nrf24_GetReg(FIFO_STATUS) & (1 << TX_EMPTY)))
-		send_Uart_str("1");
-	else
-		send_Uart_str("0");
-	send_Uart_str("\r");
-		send_Uart_str("\r");
-	
-	
-	send_Uart_str("nrf24_is_interrupt_return\t");
-	send_Uart_SHbit(nrf24_is_interrupt());
-	send_Uart_str("\r");
-	
-	
-	
-	send_Uart_str("IRQ\t");
-	if (!(PIN_nrf_IEQ) & (1 << IRQ))
-	send_Uart_str("1");
-	else
-	send_Uart_str("0");
-	send_Uart_str("\r");
-	
-	
-	send_Uart_str("IRQ\t\t");
-	if (nrf24_is_interrupt()!=0)
-	send_Uart_str("on");
-	else 
-	send_Uart_str("off");
-	send_Uart_str("\r");
-		
-	
-	send_Uart_str("Send pac in space");
-	send_Uart_str("\r");
-	
-	ce_Low();
-	nrf24_SetReg(CONFIG,(1<<PWR_UP)|(1<<EN_CRC)|(0<<PRIM_RX));
-	ce_High();
-	_delay_us(15);
-	ce_Low();
-	_delay_us(135);
-
-
-	send_Uart_str("TX_EMPTY\t\t");
-	if (!(nrf24_GetReg(FIFO_STATUS) & (1 << TX_EMPTY)))
-	send_Uart_str("1");
-	else
-	send_Uart_str("0");
-	send_Uart_str("\r");
-	send_Uart_str("\r");
-
-	
-	send_Uart_str("IRQ\t\t");
-	if (nrf24_is_interrupt()!=0)
-		send_Uart_str("on");
-	else
-		send_Uart_str("off");
-	send_Uart_str("\r");
-	
-	
-	
-	send_Uart_str("PIN_nrf_IEQ\t");
-	send_Uart_SHbit(PIN_nrf_IEQ);
-	send_Uart_str("\r");
 	//ce_High();
 	
 	

@@ -6,7 +6,7 @@
  */ 
 
 
-
+#include "define.h"
 #include "init_mega328.h"
 #include <avr/io.h>
 
@@ -16,7 +16,7 @@ void init()
 
 //Инициализация мк и периферии.
 
-#define F_CPU 8000000UL
+//#define F_CPU 8000000UL
 
 #define SPI
 #define	USART

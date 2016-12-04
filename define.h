@@ -4,9 +4,10 @@
 
 //#define F_CPU 16000000UL /*Частота кварца микроконтроллера*/
 #define F_CPU	8000000UL
+//#define F_CPU 7372800U
+
 #define _U_		__attribute__((__unused__))
 
-//#define F_CPU 7372800UL
 
 #endif
 

@@ -16,10 +16,10 @@
 #define DD_SCK	5
 #define DD_SS	2
 
-# define SPI2 1
+#define SPI2 1
 
 
-//uint8_t *pixels[] ;										// LED RGB values (3 bytes ea.)
+uint8_t *pixels[] ;										// LED RGB values (3 bytes ea.)
 
 
 void

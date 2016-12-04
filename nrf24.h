@@ -26,7 +26,7 @@
 
 
 uint8_t	nrf24_init();
-void nrf24_test()
+void nrf24_test();
 
 //uint8_t nrf24_is_interrupt();
 
