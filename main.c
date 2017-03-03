@@ -102,8 +102,8 @@ int main(void)
 	//OCR0A=(125-1);
 	
 	//включаем прерывания
-	//TIMSK0|=0<<TOIE0|1<<OCIE0A;		//on interrupt overflow timer
-	sei();							//on global interrupt
+	//TIMSK0|=0<<TOIE0|1<<OCIE0A;				//on interrupt overflow timer
+	sei();										//on global interrupt
 	
 	
 	//ce_High();

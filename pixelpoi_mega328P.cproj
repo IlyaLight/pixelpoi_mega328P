@@ -20,40 +20,24 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <RamSnippetAddress />
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <OverrideVtorValue />
     <BootSegment>2</BootSegment>
     <eraseonlaunchrule>0</eraseonlaunchrule>
-    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
-    <avrtoolserialnumber />
-    <avrdeviceexpectedsignature>0x1E950F</avrdeviceexpectedsignature>
-    <custom>
-      <ToolOptions>
-        <InterfaceProperties>
-        </InterfaceProperties>
-        <InterfaceName>
-        </InterfaceName>
-      </ToolOptions>
-      <ToolType>custom</ToolType>
-      <ToolNumber>
-      </ToolNumber>
-      <ToolName>Custom Programming Tool</ToolName>
-    </custom>
-    <avrtoolinterface />
-    <com_atmel_avrdbg_tool_simulator>
-      <ToolOptions xmlns="">
-        <InterfaceProperties>
-        </InterfaceProperties>
-        <InterfaceName>
-        </InterfaceName>
-      </ToolOptions>
-      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolNumber xmlns="">
-      </ToolNumber>
-      <ToolName xmlns="">Simulator</ToolName>
-    </com_atmel_avrdbg_tool_simulator>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.32.0" />
+  </dependencies>
+</framework-data>
+    </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -134,19 +118,22 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="apa102.c">
+    <None Include="apa102.c">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="apa102.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="define.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="apa102.h">
+    <None Include="graphics.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="init_mega328.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="graphics.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="onebutton.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="onebutton.h">
+    <Compile Include="init_mega328.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="macros.h">
@@ -155,10 +142,31 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="pixelpoi.c">
+    <Compile Include="nrf24.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="pixelpoi.h">
+    <Compile Include="nrf24.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="nRF24L01.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="onebutton.c">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="onebutton.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="pixelpoi.c">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="pixelpoi.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uart.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
